@@ -79,3 +79,7 @@ st.subheader("promedio de horas trabajadas vs puntaje de desempeno")
 horas_score = df.groupby("performance_score")["average_work_hours"].mean().reset_index()
 fig4 = px.bar(horas_score, x="performance_score", y="average_work_hours")
 st.plotly_chart(fig4, use_container_width=True)
+
+# conclusiones del analisis
+st.subheader("Conclusion")
+st.write("la mayoria de los colaboradores se concentra en los puntajes de desempeno mas aceptables, aunque hay mas trabajadores en los extremos buenos de calificacion 4 y 5 que en los extremos de 1 y 2, en general el area mantiene un buen nivel... el promedio de horas trabajadas es parecido entre generos, no hay una diferencia significante, la pequeña variacion puede ser debido a cualquier situacion personal extraordinaria; en la edad y salario se nota que el salario no depende solo de la edad, hay puestos que pagan mas sin importar la cantidad de tiempo que tenga la persona. y al comparar las horas trabajadas contra el puntaje de desempeno no creo que sea posible concluir que hay una relacion fuerte entre el tiempo de trabajo y el puntaje por lo que trabajar mas horas no significa un mejor puntaje")
