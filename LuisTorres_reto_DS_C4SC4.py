@@ -46,3 +46,13 @@ selected_gender = st.sidebar.radio("selecciona el genero", df["gender"].unique()
 min_score = int(df["satisfaction_level"].min())
 max_score = int(df["satisfaction_level"].max())
 score_range = st.sidebar.slider("rango del puntaje de desempeno",min_score,max_score,(min_score, max_score))
+
+# control para seleccionar el estado civil del empleado
+selected_marital = st.sidebar.selectbox("selecciona el estado civil", df["marital_status"].unique())
+
+# se aplican los filtros de los controles a un subconjunto que se muestra en tabla
+filtered = df[(df["gender"] == selected_gender) & (df["performance_score"] >= score_range[0]) & (df["performance_score"] <= score_range[1]) & (df["marital_status"] == selected_marital)]
+
+st.subheader("empleados que cumplen con los filtros")
+st.write("registros encontrados:", filtered.shape[0])
+st.dataframe(filtered[["name_employee", "gender", "marital_status", "performance_score", "salary", "age", "average_work_hours"]])
