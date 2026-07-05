@@ -3,6 +3,7 @@
 import pandas as pd
 import streamlit as st
 from matplotlib import pyplot as plt
+from PIL import Image
 
 # -------------- Fin de las importaciones Importaciones
 
@@ -30,3 +31,18 @@ df["name_employee"] = (df["name_employee"].str.replace(",", "", regex=False).str
 # titulo y descripcion de la app
 st.title("analisis de desempeno de colaboradores")
 st.write("aplicacion web para el area de marketing de socialize your knowledge. aqui se revisa el desempeno de los colaboradores junto con sus horas trabajadas, salario, edad y estado civil.")
+
+# logo de la empresa 
+logo = Image.open("logo_d_reto.png")
+st.image(logo, width=220)
+
+# barra de filtros en la izquierda
+st.sidebar.header("filtros")
+
+# filtro de genero de empleado
+selected_gender = st.sidebar.radio("selecciona el genero", df["gender"].unique())
+
+# control para seleccionar el rango del puntaje de desempeno
+min_score = int(df["satisfaction_level"].min())
+max_score = int(df["satisfaction_level"].max())
+score_range = st.sidebar.slider("rango del puntaje de desempeno",min_score,max_score,(min_score, max_score))
