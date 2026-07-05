@@ -4,6 +4,7 @@ import pandas as pd
 import streamlit as st
 from matplotlib import pyplot as plt
 from PIL import Image
+import plotly.express as px
 
 # -------------- Fin de las importaciones Importaciones
 
@@ -56,3 +57,25 @@ filtered = df[(df["gender"] == selected_gender) & (df["performance_score"] >= sc
 st.subheader("empleados que cumplen con los filtros")
 st.write("registros encontrados:", filtered.shape[0])
 st.dataframe(filtered[["name_employee", "gender", "marital_status", "performance_score", "salary", "age", "average_work_hours"]])
+
+# grafica de la distribucion de los puntajes de desempeno en general
+st.subheader("distribucion de los puntajes de desempeno")
+fig1 = px.histogram(df, x="performance_score", nbins=5)
+st.plotly_chart(fig1, use_container_width=True)
+
+# grafico del promedio de horas trabajadas por genero
+st.subheader("promedio de horas trabajadas por genero")
+horas_genero = df.groupby("gender")["average_work_hours"].mean().reset_index()
+fig2 = px.bar(horas_genero, x="gender", y="average_work_hours", color="gender")
+st.plotly_chart(fig2, use_container_width=True)
+
+# grafico de la edad de los empleados con respecto al salario
+st.subheader("edad vs salario")
+fig3 = px.scatter(df, x="age", y="salary", color="gender")
+st.plotly_chart(fig3, use_container_width=True)
+
+# grafico del promedio de horas trabajadas - el puntaje de desempeno
+st.subheader("promedio de horas trabajadas vs puntaje de desempeno")
+horas_score = df.groupby("performance_score")["average_work_hours"].mean().reset_index()
+fig4 = px.bar(horas_score, x="performance_score", y="average_work_hours")
+st.plotly_chart(fig4, use_container_width=True)
